@@ -174,12 +174,12 @@ class RedisManager extends Extension
         $keys = [];
 
         foreach (new Keyspace($client->client(), $pattern) as $item) {
-            $keys[] = $item;
-
             $prefix = $client->getOptions()->prefix->getPrefix() ?? '';
             if(strpos($item, $prefix) == 0){
                 $item = preg_replace("/$prefix/", '', $item, 1);
             }
+
+            $keys[] = $item;
 
             if (count($keys) == $count) {
                 break;
